@@ -194,12 +194,10 @@ func main() {
 		log.Println("Info: File .env lokal tidak ditemukan, menggunakan environment server cloud.")
 	}
 
-	// 🎯 Mengambil Koneksi DB dari variabel Environment
+	// 🎯 Mengambil Koneksi DB dari variabel Environment (Sudah AMAN & Bersih 🔒)
 	connStr := os.Getenv("DATABASE_URL")
 	if connStr == "" {
-		// Fallback sementara untuk memudahkan testing jika lupa memasukkan .env
-		connStr = "postgresql://postgres.dcbghpthuculqkbigafv:Y57GvrV6BU2xlDz3@aws-1-ap-northeast-2.pooler.supabase.com:6543/postgres"
-		log.Println("⚠️ Peringatan: Menggunakan DATABASE_URL bawaan. Sebaiknya gunakan .env")
+		log.Fatal("❌ Error: DATABASE_URL tidak ditemukan di environment variable. Pastikan file .env sudah dikonfigurasi.")
 	}
 
 	var dbErr error
